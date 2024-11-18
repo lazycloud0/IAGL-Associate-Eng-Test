@@ -3,9 +3,27 @@
   "version": "1.0.0",
   "description": "Todo example APIs",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest",
-    "start": "node src/app"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "start": "node src/app.js"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +33,10 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "jest": "^29.4.2",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
     "supertest": "^6.3.3"
   }
 }

@@ -1,32 +1,41 @@
-const express = require('express');
-const cors = require('cors');
-const repository = require('./repository/todo');
-const todoService = require('./service/todo')(repository);
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import todoRoutes from "./routes/todoRoutes.js";
 
-const server = () => {
-  const server = express();
-  server.use(express.json());
-  server.use(cors());
+dotenv.config();
 
-  server.get('/api/todo', async (req, res) => {
-    res.json(await todoService.getTodos());
+const createServer = () => {
+  const app = express();
+  const PORT = process.env.PORT || 9091;
+
+  // CORS configuration
+  app.use(
+    cors({
+      origin: ["http://localhost:3000"],
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      credentials: true,
+      allowedHeaders: ["Content-Type"],
+      optionsSuccessStatus: 200,
+    })
+  );
+
+  app.options("*", cors());
+
+  app.use(express.json());
+  app.use("/api", todoRoutes);
+
+  app.get("/", (req, res) => {
+    res.send("Welcome to the Todo List API!");
   });
 
-  /**
-  POST /api/todo
-  {
-   "task": "Some API"
-  }
+  // Error handling middleware
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: "An error occurred", error: err.message });
+  });
 
-   {
-    "todos": [
-      {
-        "task": "Some API"
-      }
-    ]
-   }
-  **/
-
-  return server;
+  return app;
 };
-module.exports = server;
+
+export default createServer;
