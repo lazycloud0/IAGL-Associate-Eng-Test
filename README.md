@@ -1,13 +1,5 @@
 # TODO App
 
-## The task
-
-We want to build a TODO web app.
-
-It will allow the users to keep track and organize their tasks.
-
-Your objective is to do the following user story.
-
 ```
 As a user
 I want to be able to add a TODO item
@@ -18,34 +10,48 @@ The app has two parts, a frontend built in React and a Backend built in NodeJS.
 
 The backend exposes an API to fetch the TODO items, that are be displayed in the page.
 
-To complete the task you will be required to work on both backend and frontend parts.
+## File Structure
 
-Please write code as you would for it to be production ready.
-
-While it isn't required to make the front end look slick and well designed we would appreciate any effort that you put into UI design and UX.
-
-
-## Starting the application
-
-- Backend: (In the backend folder)
-```shell
-npm install
-npm start # Start the server in the 9091 port
-```
-
-- Frontend: (In the root folder)
-```shell
-npm install
-npm start # Starts the app in http://localhost:3000
-```
+TODO-App/
+├── backend/
+│ ├── controllers/
+│ │ └── todoController.js
+│ ├── repositories/
+│ │ └── todoRepository.js
+│ ├── routes/
+│ │ └── todoRoutes.js
+├── servies/
+│ │ └── todoServices.js  
+ ├── tests/
+│ │ └── todoRepository.test.js  
+│ │ └── todoServices.test.js  
+│ ├── app.js
+│ ├── server.js
+│ └── package.json
+├── src/
+│ ├── TodoApp.jsx
+│ ├── index.js
+│ ├── actions/
+│ │ └── index.js
+│ │ └── types.js
+│ ├── components/
+│ │ └── TodoForm.jsx
+│ │ └── TodoItem.jsx
+│ │ └── TodoList.jsx
+│ ├── reducers/
+│ │ └── index.js
+│ └── store/
+│ └── index.js
+├── public/
+│ └── index.html
+├── README.md
+└── package.json
 
 ## Backend
 
 You can find it in the `/backend` directory. It's built in Express and stores the TODO items in memory.
 
-* GET /api/todo
-
-![get todo picture](docs/get_todo_endpoint.png "Get TODO")
+- GET /api/todo
 
 ## Frontend
 
@@ -53,5 +59,33 @@ You can find it in the `src` folder. It has been build with React and Redux. The
 
 You can assume the backend is running under `http://localhost:9091/api/todo`
 
+## API Endpoints
 
-![get todo FE](docs/get_todo_frontend.png "GET todo frontend")
+- `GET /api/todos`: Fetch all TODO items.
+- `POST /api/todos`: Add a new TODO item.
+- `PUT /api/todos/:id`: Update an existing TODO item.
+- `DELETE /api/todos/:id`: Delete a TODO item.
+
+## Starting the application
+
+- Backend: (In the backend folder)
+
+```shell
+npm install
+npm start # Start the server in the 9091 port
+```
+
+- Frontend: (In the root folder)
+
+```shell
+npm install
+npm start # Starts the app in http://localhost:3000
+```
+
+# Contributing
+
+Feel free to submit issues and pull requests.
+
+## License
+
+This project is licensed under the MIT License.
